@@ -1,6 +1,8 @@
 package com.funwithactivity.bff.models;
 
-public class Recommendation {
+import java.util.Objects;
+
+public class Recommendation implements Comparable<Recommendation> {
 
     private final int priority;
     private final String title;
@@ -31,15 +33,13 @@ public class Recommendation {
 
         Recommendation that = (Recommendation) o;
 
-        if (priority != that.priority) return false;
         if (!title.equals(that.title)) return false;
-        return details != null ? details.equals(that.details) : that.details == null;
+        return Objects.equals(details, that.details);
     }
 
     @Override
     public int hashCode() {
-        int result = priority;
-        result = 31 * result + title.hashCode();
+        int result = title.hashCode();
         result = 31 * result + (details != null ? details.hashCode() : 0);
         return result;
     }
@@ -51,5 +51,10 @@ public class Recommendation {
                 ", title='" + title + '\'' +
                 ", details='" + details + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Recommendation o) {
+        return Integer.compare(o.priority, this.priority);
     }
 }

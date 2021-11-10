@@ -1,31 +1,51 @@
 package com.funwithactivity.bff.dataprovider.external.service1;
 
 import com.funwithactivity.bff.dataprovider.RecommendationsDataProvider;
+import com.funwithactivity.bff.dataprovider.external.RequestMapper;
+import com.funwithactivity.bff.models.MeasurementUnit;
+import com.funwithactivity.bff.models.Recommendation;
 import com.funwithactivity.bff.models.RecommendationRequest;
 import com.funwithactivity.bff.models.RecommendationsResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.funwithactivity.bff.utils.Measurement;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 
 public class ExtService1DataProvider implements RecommendationsDataProvider {
 
     public static final String SERVICE_BASE_URL = "http://ase.asmt.live:8000/services/service1";
+    public static final MeasurementUnit DEFAULT_MEASUREMENT_UNIT = MeasurementUnit.METRIC;
+    private static final RequestMapper REQUEST_MAPPER = req -> new ExtService1RecommendationRequest(Measurement.mapRequestToDifferentMeasurementUnit(
+            DEFAULT_MEASUREMENT_UNIT, req
+    ));
+    private final RestTemplate restTemplate;
 
-    RestTemplate restTemplate = new RestTemplate();
+    public ExtService1DataProvider(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    private static RecommendationsResponse translateResponse(ExtService1RecommendationsResponse.Service1Recommendation[] response) {
+        if (response.length == 0) {
+            return new RecommendationsResponse(new Recommendation[0], null);
+        }
+        Stream<Recommendation> recommendationStream = Arrays.stream(response).map(service1Recommendation -> new Recommendation((int) (service1Recommendation.getConfidence() * 1000), service1Recommendation.getRecommendation(), null));
+
+        return new RecommendationsResponse(recommendationStream.toArray(Recommendation[]::new), null); // TODO map error
+    }
 
     @Override
     @NonNull
-    public RecommendationsResponse provideRecommendations(RecommendationRequest request) {
-        ExtService1RecommendationRequest request1 = new ExtService1RecommendationRequest(50, 50, "service1-dev");
-        ExtService1RecommendationsResponse.Service1Recommendation[] recommendations = restTemplate.postForObject(SERVICE_BASE_URL, request1, ExtService1RecommendationsResponse.Service1Recommendation[].class);
-        System.out.println(Arrays.toString(recommendations));
-        return null;
+    public RecommendationsResponse provideRecommendations(RecommendationRequest req) {
+        ExtService1RecommendationsResponse.Service1Recommendation[] recommendations = restTemplate.postForObject(
+                SERVICE_BASE_URL,
+                REQUEST_MAPPER.map(req),
+                ExtService1RecommendationsResponse.Service1Recommendation[].class);
+        if (recommendations == null) {
+            return new RecommendationsResponse(null, "Something went wrong");
+        }
+        return translateResponse(recommendations);
     }
-
-//    [Service1Recommendation{confidence=0.56, recommendation='Don't eat carbs!'}, Service1Recommendation{confidence=0.24, recommendation='Don't eat carbs!'}, Service1Recommendation{confidence=0.23, recommendation='Drink more still water'}, Service1Recommendation{confidence=0.16, recommendation='Drink more still water'}, Service1Recommendation{confidence=0.8, recommendation='Walk more'}, Service1Recommendation{confidence=0.22, recommendation='Focus on cycle exercises'}, Service1Recommendation{confidence=0.08, recommendation='Go for a physical check up'}, Service1Recommendation{confidence=0.06, recommendation='Time to stand up'}, Service1Recommendation{confidence=0.62, recommendation='Go for a physical check up'}]
-
 }

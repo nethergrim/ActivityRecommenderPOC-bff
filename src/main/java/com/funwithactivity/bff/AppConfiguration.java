@@ -17,8 +17,8 @@ public class AppConfiguration {
     @Bean
     public RecommendationsDataProvider recommendationsDataProvider() {
         return new CombinedRecommendationsDataProvider(Arrays.asList(
-                new ExtService1DataProvider(),
-                new ExtService2DataProvider()
+                new ExtService1DataProvider(new RestTemplate()),
+                new ExtService2DataProvider(new RestTemplate())
         ));
     }
 
