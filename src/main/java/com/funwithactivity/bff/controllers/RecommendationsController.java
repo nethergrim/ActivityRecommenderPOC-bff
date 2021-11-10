@@ -6,6 +6,8 @@ import com.funwithactivity.bff.models.RecommendationsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 public class RecommendationsController {
 
@@ -19,7 +21,7 @@ public class RecommendationsController {
             @RequestParam(name = "measurement_system", defaultValue = "metric") String measurementSystem,
             @RequestParam(name = "body_weight") float bodyWeight,
             @RequestParam(name = "body_height") float bodyHeight
-    ) {
+    ) throws IOException {
         return dataProvider.provideRecommendations(new RecommendationRequest(measurementSystem, bodyWeight, bodyHeight));
     }
 }

@@ -1,28 +1,23 @@
 package com.funwithactivity.bff.dataprovider.external.service2;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonKey;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 @JsonIgnoreProperties(ignoreUnknown = false)
 public class ExtService2RecommendationsResponse {
 
-    private Service2Recommendation[] recommendations;
-    private int code;
-    private String error;
+    private int errorCode;
 
-    public Service2Recommendation[] getRecommendations() {
-        return recommendations;
-    }
+    private String errorMessage;
 
-    public int getCode() {
-        return code;
-    }
 
     public int getErrorCode() {
-        return code;
+        return errorCode;
     }
 
-    public String getError() {
-        return error;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = false)

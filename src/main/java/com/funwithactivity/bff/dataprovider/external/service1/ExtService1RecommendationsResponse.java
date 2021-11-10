@@ -5,7 +5,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = false)
 public class ExtService1RecommendationsResponse {
 
-    // TODO error model
+    private int errorCode;
+    private String errorMessage;
+
+    public int getErrorCode() {
+        return errorCode;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 
     @JsonIgnoreProperties(ignoreUnknown = false)
     public static class Service1Recommendation {
