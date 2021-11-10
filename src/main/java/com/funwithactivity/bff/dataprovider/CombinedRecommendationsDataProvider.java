@@ -17,6 +17,7 @@ public class CombinedRecommendationsDataProvider implements RecommendationsDataP
     @Override
     @NonNull
     public RecommendationsResponse provideRecommendations(RecommendationRequest request) {
+        downstreamDataProviders.forEach(provider -> provider.provideRecommendations(request));
         return new RecommendationsResponse(null, "test error");
     }
 }
