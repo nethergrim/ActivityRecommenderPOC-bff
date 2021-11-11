@@ -40,7 +40,7 @@ public class ExtService1DataProvider implements RecommendationsDataProvider {
             @Nullable ExtService1RecommendationsResponse.Service1Recommendation[] response
     ) {
         if (response == null || response.length == 0) {
-            return new RecommendationsResponse(new Recommendation[0], null);
+            return new RecommendationsResponse(new Recommendation[0], null, 0);
         }
         Stream<Recommendation> recommendationStream = Arrays
                 .stream(response)
@@ -50,7 +50,7 @@ public class ExtService1DataProvider implements RecommendationsDataProvider {
                                 service1Recommendation.getRecommendation(),
                                 null)
                 );
-        return new RecommendationsResponse(recommendationStream.toArray(Recommendation[]::new), null);
+        return new RecommendationsResponse(recommendationStream.toArray(Recommendation[]::new), null, 0);
     }
 
     @Override
@@ -77,6 +77,6 @@ public class ExtService1DataProvider implements RecommendationsDataProvider {
         }
 
         ExtService1RecommendationsResponse errorResponse = mapper.readValue(responseBodyString, ExtService1RecommendationsResponse.class);
-        return new RecommendationsResponse(null, errorResponse.getErrorMessage());
+        return new RecommendationsResponse(null, errorResponse.getErrorMessage(), errorResponse.getErrorCode());
     }
 }

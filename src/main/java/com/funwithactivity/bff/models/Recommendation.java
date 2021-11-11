@@ -39,7 +39,7 @@ public class Recommendation implements Comparable<Recommendation> {
         Recommendation that = (Recommendation) o;
 
         if (!title.equals(that.title)) return false;
-        return Objects.equals(details, that.details);
+        return details != null ? details.equals(that.details) : that.details == null;
     }
 
     @Override

@@ -7,10 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.lang.NonNull;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.IntFunction;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class CombinedRecommendationsDataProvider implements RecommendationsDataProvider {
@@ -25,14 +22,19 @@ public class CombinedRecommendationsDataProvider implements RecommendationsDataP
     @Override
     @NonNull
     public RecommendationsResponse provideRecommendations(@NotNull RecommendationRequest request) throws IOException {
-        List<Recommendation> recommendations = new ArrayList<>();
+        Set<Recommendation> recommendations = new HashSet<>();
         for (RecommendationsDataProvider provider : downstreamDataProviders) {
             RecommendationsResponse response = provider.provideRecommendations(request);
             if (response.getError() != null) {
-                return new RecommendationsResponse(null, response.getError());
+                return response;
             }
             recommendations.addAll(new ArrayList<>(Arrays.asList(response.getRecommendations())));
         }
-        return new RecommendationsResponse(recommendations.stream().sorted().distinct().toArray((Recommendation[]::new)), null);
+        return new RecommendationsResponse(
+                recommendations
+                        .stream()
+                        .sorted()
+                        .filter(recommendation -> recommendation.getPriority() >= 500)
+                        .toArray((Recommendation[]::new)), null, 0);
     }
 }

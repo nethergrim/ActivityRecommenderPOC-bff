@@ -37,12 +37,12 @@ public class ExtService2DataProvider implements RecommendationsDataProvider {
 
     private static RecommendationsResponse translateSuccessfulResponse(ExtService2RecommendationsResponse.Service2Recommendation[] response) {
         if (response == null || response.length == 0) {
-            return new RecommendationsResponse(new Recommendation[0], null);
+            return new RecommendationsResponse(new Recommendation[0], null, 0);
         }
 
         Stream<Recommendation> recommendationStream = Arrays.stream(response).map(rec -> new Recommendation(rec.getPriority(), rec.getTitle(), rec.getDetails()));
 
-        return new RecommendationsResponse(recommendationStream.toArray(Recommendation[]::new), null); // TODO map error
+        return new RecommendationsResponse(recommendationStream.toArray(Recommendation[]::new), null, 0);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ExtService2DataProvider implements RecommendationsDataProvider {
         }
 
         ExtService2RecommendationsResponse errorResponse = mapper.readValue(responseBodyString, ExtService2RecommendationsResponse.class);
-        return new RecommendationsResponse(null, errorResponse.getErrorMessage());
+        return new RecommendationsResponse(null, errorResponse.getErrorMessage(), errorResponse.getErrorCode());
 
 
     }
