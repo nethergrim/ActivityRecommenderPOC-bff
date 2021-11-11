@@ -31,29 +31,29 @@ jobs:
      - name: Build with Maven
        run: mvn -B package --file pom.xml
       
-    - name: Archive
-      run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git
+     - name: Archive
+       run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git
       
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with: 
+     - name: Configure AWS Credentials
+       uses: aws-actions/configure-aws-credentials@v1
+       with: 
         aws-access-key-id      : ${{ secrets.AWS_ACCESS_KEY }}
         aws-secret-access-key  : ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region             : ${{ env.AWS_REGION_NAME }} 
         
-    - name: Copy package to S3 bucket
-      run: aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.S3_BUCKET_NAME }}/
+     - name: Copy package to S3 bucket
+       run: aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.S3_BUCKET_NAME }}/
       
-    - name: Create new Elastic Beanstalk application version
-      run: |
+     - name: Create new Elastic Beanstalk application version
+       run: |
         aws elasticbeanstalk create-application-version \
         --application-name ${{ env.EBS_APPLICATION_NAME }} \
         --source-bundle S3Bucket="${{ env.S3_BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
         --version-label "Ver-${{ github.sha }}" \
         --description "CommitSHA-${{ github.sha }}"
         
-    - name: Deploy new application version
-      run: |
+     - name: Deploy new application version
+       run: |
         aws elasticbeanstalk update-environment \
         --environment-name ${{ env.EBS_ENV_NAME }} \
         --version-label "Ver-${{ github.sha }}"
