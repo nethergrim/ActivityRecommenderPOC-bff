@@ -7,11 +7,16 @@ public class Recommendation implements Comparable<Recommendation> {
     private final int priority;
     private final String title;
     private final String details;
+    private int id;
 
     public Recommendation(int priority, String title, String details) {
         this.priority = priority;
         this.title = title;
         this.details = details;
+    }
+
+    public int getId() {
+        return hashCode();
     }
 
     public int getPriority() {

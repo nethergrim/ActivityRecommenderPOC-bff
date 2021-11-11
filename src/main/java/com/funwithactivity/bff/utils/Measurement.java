@@ -15,10 +15,10 @@ public class Measurement {
         }
         switch (targetMeasurementUnit) {
             case US:
-                return new RecommendationRequest(targetMeasurementUnit.getValue(), convertKGToPounds(req.getBodyWeight()), convertCMToFeet(req.getBodyHeight()));
+                return new RecommendationRequest(targetMeasurementUnit.getValue(), convertKGToPounds(req.getBodyWeight()), convertCMToFeet(req.getBodyHeight()), req.getBirthdate());
             case METRIC:
             default:
-                return new RecommendationRequest(targetMeasurementUnit.getValue(), convertPoundsToKG(req.getBodyWeight()), convertFeetToCM(req.getBodyHeight()));
+                return new RecommendationRequest(targetMeasurementUnit.getValue(), convertPoundsToKG(req.getBodyWeight()), convertFeetToCM(req.getBodyHeight()), req.getBirthdate());
         }
     }
 

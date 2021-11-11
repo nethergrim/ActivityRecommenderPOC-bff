@@ -20,8 +20,9 @@ public class RecommendationsController {
     public RecommendationsResponse getRecommendations(
             @RequestParam(name = "measurement_system", defaultValue = "metric") String measurementSystem,
             @RequestParam(name = "body_weight") float bodyWeight,
-            @RequestParam(name = "body_height") float bodyHeight
+            @RequestParam(name = "body_height") float bodyHeight,
+            @RequestParam(name = "birthdate") String birthdate
     ) throws IOException {
-        return dataProvider.provideRecommendations(new RecommendationRequest(measurementSystem, bodyWeight, bodyHeight));
+        return dataProvider.provideRecommendations(new RecommendationRequest(measurementSystem, bodyWeight, bodyHeight, birthdate));
     }
 }
