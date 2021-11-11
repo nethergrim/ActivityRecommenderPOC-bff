@@ -4,11 +4,11 @@
 name: CI-CD-Pipeline-AWS-EBS
 
 env:
-  S3_BUCKET_NAME      : 'activityrecommender-bff-cd-cd'
-  EBS_APPLICATION_NAME: 'Recommender-BFF'
-  EBS_ENV_NAME        : 'Recommender-BFF-env'
-  DEPLOY_PACKAGE_NAME : 'com.funwithactivity.bff-${{ github.sha }}.zip'
-  AWS_REGION_NAME     : 'us-east-2'
+  S3_BUCKET_NAME: 'activityrecommender-bff-cd-cd'
+  EBS_APPLICATION_NAME: 'ApplicationRecommender-BFF'
+  EBS_ENV_NAME: 'ActivityRecommender-BFF'
+  DEPLOY_PACKAGE_NAME: 'com.funwithactivity.bff-${{ github.sha }}.zip'
+  AWS_REGION_NAME: 'us-east-2'
 
 on:
   push:
