@@ -14,7 +14,7 @@
 	<name>bff</name>
 	<description>BFF service for Health and Activity Recommender</description>
 	<properties>
-		<java.version>8</java.version>
+		<java.version>11</java.version>
 		<maven.compiler.source>8</maven.compiler.source>
 		<maven.compiler.target>8</maven.compiler.target>
 	</properties>
