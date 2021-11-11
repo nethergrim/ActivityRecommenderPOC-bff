@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 public class ExtService2RecommendationRequest {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter
-            .ofPattern("MM/d/yyyy");
+            .ofPattern("M/d/yyyy");
     private final Measurements measurements;
     private final String session_token;
     private final long birth_date;
