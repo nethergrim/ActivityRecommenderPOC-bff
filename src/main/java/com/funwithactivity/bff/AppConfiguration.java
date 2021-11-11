@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
+@SuppressWarnings("unused")
 @Configuration
 public class AppConfiguration {
 
@@ -32,6 +33,7 @@ public class AppConfiguration {
     @Bean
     public OkHttpClient okHttpClient() {
         return new OkHttpClient.Builder()
+                .retryOnConnectionFailure(true)
                 .callTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)

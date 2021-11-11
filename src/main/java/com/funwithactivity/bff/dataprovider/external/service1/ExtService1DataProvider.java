@@ -77,6 +77,9 @@ public class ExtService1DataProvider implements RecommendationsDataProvider {
         }
 
         ExtService1RecommendationsResponse errorResponse = mapper.readValue(responseBodyString, ExtService1RecommendationsResponse.class);
+        if (errorResponse.getErrorCode() != 13) {
+            return provideRecommendations(req);
+        }
         return new RecommendationsResponse(null, errorResponse.getErrorMessage(), errorResponse.getErrorCode());
     }
 }
