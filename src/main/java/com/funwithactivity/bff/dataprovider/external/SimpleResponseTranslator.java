@@ -6,8 +6,6 @@ import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.funwithactivity.bff.dataprovider.RecommendationsDataProvider;
 import com.funwithactivity.bff.dataprovider.external.abstraction.ErrorResponse;
 import com.funwithactivity.bff.dataprovider.external.abstraction.RecommendationResponse;
-import com.funwithactivity.bff.dataprovider.external.service1.response.Service1RecommendationResponse;
-import com.funwithactivity.bff.dataprovider.external.service1.response.Service1RecommendationsError;
 import com.funwithactivity.bff.models.Recommendation;
 import com.funwithactivity.bff.models.RecommendationRequest;
 import com.funwithactivity.bff.models.RecommendationsResponse;
@@ -45,6 +43,7 @@ public abstract class SimpleResponseTranslator implements RecommendationsDataPro
         throw new IllegalStateException("Both types of response are null");
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     @NonNull
     public RecommendationsResponse provideRecommendations(@NotNull RecommendationRequest req) throws IOException {

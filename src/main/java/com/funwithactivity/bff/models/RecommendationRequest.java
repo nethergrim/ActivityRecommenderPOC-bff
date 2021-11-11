@@ -1,12 +1,17 @@
 package com.funwithactivity.bff.models;
 
-import org.springframework.lang.Nullable;
-
 public class RecommendationRequest {
     private final String measurementSystem;
     private final float bodyWeight;
     private final float bodyHeight;
     private final String birthdate;
+
+    public RecommendationRequest(String measurementSystem, float bodyWeight, float bodyHeight, String birthdate) {
+        this.measurementSystem = measurementSystem;
+        this.bodyWeight = bodyWeight;
+        this.bodyHeight = bodyHeight;
+        this.birthdate = birthdate;
+    }
 
     public String getMeasurementSystem() {
         return measurementSystem;
@@ -22,13 +27,6 @@ public class RecommendationRequest {
 
     public String getBirthdate() {
         return birthdate;
-    }
-
-    public RecommendationRequest(String measurementSystem, float bodyWeight, float bodyHeight, String birthdate) {
-        this.measurementSystem = measurementSystem;
-        this.bodyWeight = bodyWeight;
-        this.bodyHeight = bodyHeight;
-        this.birthdate = birthdate;
     }
 
     @Override

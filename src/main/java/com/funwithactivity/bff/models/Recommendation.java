@@ -1,7 +1,5 @@
 package com.funwithactivity.bff.models;
 
-import java.util.Objects;
-
 public class Recommendation implements Comparable<Recommendation> {
 
     private final int priority;

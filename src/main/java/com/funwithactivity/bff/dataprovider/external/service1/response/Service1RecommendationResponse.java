@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.funwithactivity.bff.dataprovider.external.abstraction.RecommendationResponse;
 import com.funwithactivity.bff.models.Recommendation;
 
-@JsonIgnoreProperties(ignoreUnknown = false)
+@JsonIgnoreProperties
 public class Service1RecommendationResponse implements RecommendationResponse {
     private float confidence;
     private String recommendation;
@@ -18,7 +18,7 @@ public class Service1RecommendationResponse implements RecommendationResponse {
     }
 
     @Override
-    public Recommendation toRecommendation(){
+    public Recommendation toRecommendation() {
         return new Recommendation((int) (confidence * 1000), recommendation, null);
     }
 
