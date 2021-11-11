@@ -6,7 +6,7 @@ import org.springframework.lang.NonNull;
 
 public class Measurement {
 
-    public static RecommendationRequest mapRequestToDifferentMeasurementUnit(
+    public static RecommendationRequest updateRequestMeasurementUnit(
             @NonNull MeasurementUnit targetMeasurementUnit,
             @NonNull RecommendationRequest req
     ) {

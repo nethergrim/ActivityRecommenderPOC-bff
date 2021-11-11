@@ -1,4 +1,4 @@
-package com.funwithactivity.bff.dataprovider.external.service2;
+package com.funwithactivity.bff.dataprovider.external.service2.request;
 
 import com.funwithactivity.bff.models.RecommendationRequest;
 
