@@ -1,38 +1,31 @@
 package com.funwithactivity.bff.dataprovider.external.service3.response;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.funwithactivity.bff.dataprovider.external.abstraction.RecommendationResponse;
 import com.funwithactivity.bff.models.Recommendation;
 
-@JsonIgnoreProperties(ignoreUnknown = false)
+@JsonIgnoreProperties
 public class Service3RecommendationResponse implements RecommendationResponse {
-    private int priority;
-    private String title;
-    private String details;
+    private float confidence;
+    private String recommendation;
 
-    public int getPriority() {
-        return priority;
+    public float getConfidence() {
+        return confidence;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    @Override
-    public String toString() {
-        return "Service2Recommendation{" +
-                "priority=" + priority +
-                ", title='" + title + '\'' +
-                ", details='" + details + '\'' +
-                '}';
+    public String getRecommendation() {
+        return recommendation;
     }
 
     @Override
     public Recommendation toRecommendation() {
-        return new Recommendation(priority, title, details);
+        return new Recommendation((int) (confidence * 1000), recommendation, null);
+    }
+
+    @Override
+    public String toString() {
+        return "Service1Recommendation{" +
+                "confidence=" + confidence +
+                ", recommendation='" + recommendation + '\'' +
+                '}';
     }
 }

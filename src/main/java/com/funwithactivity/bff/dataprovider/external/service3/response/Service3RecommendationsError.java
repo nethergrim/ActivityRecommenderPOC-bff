@@ -7,7 +7,6 @@ import com.funwithactivity.bff.dataprovider.external.abstraction.ErrorResponse;
 public class Service3RecommendationsError implements ErrorResponse {
 
     private int errorCode;
-
     private String errorMessage;
 
     @Override
