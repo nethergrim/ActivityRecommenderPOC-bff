@@ -37,7 +37,7 @@ public class ExtService2DataProvider extends SimpleResponseTranslator implements
 
     @Override
     public boolean shouldRetryOnErrorCode(int errorCode) {
-        return errorCode == 13;
+        return errorCode != 13;
     }
 
     @Override
