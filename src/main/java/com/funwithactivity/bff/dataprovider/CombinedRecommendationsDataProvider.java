@@ -8,11 +8,9 @@ import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Predicate;
 
 public class CombinedRecommendationsDataProvider implements RecommendationsDataProvider {
 
-    private static final Predicate<RecommendationsResponse> ERROR_PREDICATE = res -> res.getError() != null;
     private final List<RecommendationsDataProvider> downstreamDataProviders;
 
     public CombinedRecommendationsDataProvider(List<RecommendationsDataProvider> downstreamDataProviders) {
